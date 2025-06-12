@@ -11,19 +11,19 @@ function App() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <header>
-        <div className="logo">VADIK РИБАЛКА</div>
-        <div className="burger" onClick={toggleMenu}>☰</div>
-        <nav id="nav">
-          <Link to="/">Головна</Link>
-          <Link to="/cart">Кошик</Link>
-          <Link to="/contacts">Контакти</Link>
-        </nav>
-      </header>
+    <CartProvider>
+      <BrowserRouter>
+        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          <header>
+            <div className="logo">VADIK РИБАЛКА</div>
+            <div className="burger" onClick={toggleMenu}>☰</div>
+            <nav id="nav">
+              <Link to="/">Головна</Link>
+              <Link to="/cart">Кошик</Link>
+              <Link to="/contacts">Контакти</Link>
+            </nav>
+          </header>
 
-      <CartProvider>
-        <BrowserRouter>
           <main style={{ flex: 1 }}>
             <Routes>
               <Route path='/' element={<MainPage />} />
@@ -32,13 +32,13 @@ function App() {
               <Route path="/contacts" element={<ContactsPage />} />
             </Routes>
           </main>
-        </BrowserRouter>
-      </CartProvider>
 
-      <footer style={{ padding: '1rem', textAlign: 'center' }}>
-        © 2025 VADIK РИБАЛКА — Всі права захищені
-      </footer>
-    </div>
+          <footer style={{ padding: '1rem', textAlign: 'center' }}>
+            © 2025 VADIK РИБАЛКА — Всі права захищені
+          </footer>
+        </div >
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

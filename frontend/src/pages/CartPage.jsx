@@ -26,7 +26,7 @@ const CartPage = () => {
           quantity: item.quantity,
         })),
       };
-      await axios.post('http://127.0.0.1:8000/api/orders/', payload);
+      await axios.post('https://kvesy.pythonanywhere.com/api/orders/', payload);
       clearCart();
       setSuccess(true);
       setOrderPlaced(true);

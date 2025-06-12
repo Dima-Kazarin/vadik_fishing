@@ -6,7 +6,7 @@ const MainPage = () => {
     const [products, setProducts] = useState([])
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/product/')
+    axios.get('https://kvesy.pythonanywhere.com/api/product/')
       .then(response => {
         console.log('Продукты:', response.data[0].images[0].image);
         setProducts(response.data)
@@ -26,7 +26,7 @@ const MainPage = () => {
       <div id="catalog" className="catalog">
         {products.map(product => (
           <Link to={`/product/${product.id}`} className='product' key={product.id}>
-            <img src={`http://127.0.0.1:8000${product.images[0].image}`} alt={product.name}/>
+            <img src={`https://kvesy.pythonanywhere.com${product.images[0].image}`} alt={product.name}/>
             <h2>{product.name}</h2>
             <p>Цена: {product.price} грн</p>
             {product.is_available ? (

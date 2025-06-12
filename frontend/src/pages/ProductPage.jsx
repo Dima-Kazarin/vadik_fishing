@@ -12,7 +12,7 @@ const ProductPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/product/${id}/`)
+    axios.get(`https://kvesy.pythonanywhere.com/api/product/${id}/`)
       .then(res => {
         setProduct(res.data);
         setSelectedOption(res.data.options[0]?.id || null);
@@ -51,7 +51,7 @@ const ProductPage = () => {
         {images.length > 0 && (
           <div style={{ position: 'relative' }}>
             <img
-              src={`http://127.0.0.1:8000${images[currentImageIndex].image}`}
+              src={`https://kvesy.pythonanywhere.com${images[currentImageIndex].image}`}
               alt={product.name}
               style={{ width: '100%', borderRadius: '16px', objectFit: 'contain' }}
             />

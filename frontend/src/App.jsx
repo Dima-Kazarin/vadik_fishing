@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import MainPage from './pages/MainPage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
@@ -16,9 +16,9 @@ function App() {
         <div className="logo">VADIK РИБАЛКА</div>
         <div className="burger" onClick={toggleMenu}>☰</div>
         <nav id="nav">
-          <a href="/">Головна</a>
-          <a href="/cart">Кошик</a>
-          <a href="/contacts">Контакти</a>
+          <Link to="/">Головна</Link>
+          <Link to="/cart">Кошик</Link>
+          <Link to="/contacts">Контакти</Link>
         </nav>
       </header>
 

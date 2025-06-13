@@ -17,7 +17,7 @@ async def start(message):
 @router.message(F.text == 'Все заказы')
 async def show_orders(message: Message):
     async with aiohttp.ClientSession() as session:
-        async with session.get("http://localhost:8000/api/orders/") as response:
+        async with session.get("https://kvesy.pythonanywhere.com/api/orders/") as response:
             if response.status == 200:
                 orders = await response.json()
                 if not orders:
@@ -38,7 +38,7 @@ async def show_orders(message: Message):
                     )
                     for item in order["items"]:
                         product_name = f"ID {item['product']}"
-                        async with session.get(f"http://localhost:8000/api/product/{item['product']}/") as prod_resp:
+                        async with session.get(f"https://kvesy.pythonanywhere.com/api/product/{item['product']}/") as prod_resp:
                             if prod_resp.status == 200:
                                 product_data = await prod_resp.json()
                                 product_name = product_data.get("name", product_name)
@@ -46,7 +46,7 @@ async def show_orders(message: Message):
                         option_label = "—"
                         if item['option']:
                             async with session.get(
-                                    f"http://localhost:8000/api/product-options/{item['option']}/") as opt_resp:
+                                    f"https://kvesy.pythonanywhere.com/api/product-options/{item['option']}/") as opt_resp:
                                 if opt_resp.status == 200:
                                     option_data = await opt_resp.json()
                                     option_label = option_data.get("label", option_label)
@@ -72,20 +72,20 @@ async def toggle_order_done(callback: CallbackQuery):
     order_id = int(callback.data.split(":")[1])
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(f"http://localhost:8000/api/orders/{order_id}/") as get_resp:
+        async with session.get(f"https://kvesy.pythonanywhere.com/api/orders/{order_id}/") as get_resp:
             if get_resp.status != 200:
                 await callback.answer("Не удалось получить заказ", show_alert=True)
                 return
             order_data = await get_resp.json()
 
         async with session.patch(
-                f"http://localhost:8000/api/orders/{order_id}/toggle_done/"
+                f"https://kvesy.pythonanywhere.com/api/orders/{order_id}/toggle_done/"
         ) as patch_resp:
             if patch_resp.status != 200:
                 await callback.answer("Ошибка при обновлении", show_alert=True)
                 return
 
-        async with session.get(f"http://localhost:8000/api/orders/{order_id}/") as updated_resp:
+        async with session.get(f"https://kvesy.pythonanywhere.com/api/orders/{order_id}/") as updated_resp:
             if updated_resp.status != 200:
                 await callback.answer("Не удалось получить обновлённый заказ", show_alert=True)
                 return
@@ -104,7 +104,7 @@ async def toggle_order_done(callback: CallbackQuery):
 
         for item in updated_order["items"]:
             product_name = f"ID {item['product']}"
-            async with session.get(f"http://localhost:8000/api/product/{item['product']}/") as prod_resp:
+            async with session.get(f"https://kvesy.pythonanywhere.com/api/product/{item['product']}/") as prod_resp:
                 if prod_resp.status == 200:
                     product_data = await prod_resp.json()
                     product_name = product_data.get("name", product_name)
@@ -112,7 +112,7 @@ async def toggle_order_done(callback: CallbackQuery):
             option_label = "—"
             if item['option']:
                 async with session.get(
-                        f"http://localhost:8000/api/product-options/{item['option']}/"
+                        f"https://kvesy.pythonanywhere.com/api/product-options/{item['option']}/"
                 ) as opt_resp:
                     if opt_resp.status == 200:
                         option_data = await opt_resp.json()

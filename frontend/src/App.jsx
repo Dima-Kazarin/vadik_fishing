@@ -10,6 +10,13 @@ function App() {
     document.getElementById("nav").classList.toggle("active");
   }
 
+  function closeMenuIfOpen() {
+    const nav = document.getElementById("nav");
+    if (nav.classList.contains("active")) {
+      nav.classList.remove("active");
+    }
+  }
+
   return (
     <CartProvider>
       <BrowserRouter>
@@ -18,9 +25,9 @@ function App() {
             <div className="logo">VADIK РИБАЛКА</div>
             <div className="burger" onClick={toggleMenu}>☰</div>
             <nav id="nav">
-              <Link to="/">Головна</Link>
-              <Link to="/cart">Кошик</Link>
-              <Link to="/contacts">Контакти</Link>
+              <Link to="/" onClick={closeMenuIfOpen}>Головна</Link>
+              <Link to="/cart" onClick={closeMenuIfOpen}>Кошик</Link>
+              <Link to="/contacts" onClick={closeMenuIfOpen}>Контакти</Link>
             </nav>
           </header>
 
